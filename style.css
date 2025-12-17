@@ -19,7 +19,7 @@ input:invalid {
 #header {
   background-color: teal;
   grid-column: 1 / 3;
-  grid-row: 1;
+  /* grid-row: 1; */
 }
 
 #nav {
@@ -30,7 +30,7 @@ input:invalid {
 
 #sidebar {
   background-color: blue;
-  grid-column: 1;
+  /* grid-column: 1; */
   grid-row: 2 / 4;
 }
 
@@ -42,6 +42,6 @@ input:invalid {
 
 #footer {
   background-color: grey;
-  grid-row: 4;
+  /* grid-row: 4; */
   grid-column: 1 / 3;
 }
