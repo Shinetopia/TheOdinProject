@@ -36,6 +36,10 @@
         }
         return num;
       }
+      function squareof(num) {
+        return num ** 0.5;
+      }
+
       // event handler
       input.addEventListener("change", () => {
         const num = parseFloat(input.value);
@@ -45,6 +49,7 @@
           para.textContent = `${num} squared is ${squared(num)}. `;
           para.textContent += `${num} cubed is ${cubed(num)}. `;
           para.textContent += `${num} factorial is ${factorial(num)}. `;
+          para.textContent += `${num}'s squar is ${squareof(num)}.`;
         }
       });
     </script>
