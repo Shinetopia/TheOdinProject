@@ -51,6 +51,52 @@ function isCapital(string) {
 }
 isCapital("a");
 
-// textBox.addEventListener("keydown", function (event) {
-//   console.log(`You pressed "${event.key}".`);
-// });
+// fireworks countdown
+const fireworksOutput = document.querySelector(".fireworks");
+fireworksOutput.textContent = "";
+
+for (let i = 10; i > -1; i--) {
+  const para = document.createElement("p");
+  para.textContent = i;
+  if (i === 10) {
+    para.textContent = `Countdown ${i}`;
+  } else if (i === 0) {
+    para.textContent = "Happy New Year!!!";
+  }
+  fireworksOutput.appendChild(para);
+}
+
+// black list filtering, Phil & Lola
+const people = [
+  "Chris",
+  "Anne",
+  "Colin",
+  "Terri",
+  "Phil",
+  "Lola",
+  "Sam",
+  "Kay",
+  "Bruce",
+];
+
+const admitted = document.querySelector(".admitted");
+const refused = document.querySelector(".refused");
+admitted.textContent = "Admit: ";
+refused.textContent = "Refuse: ";
+
+// for (const item of array) {
+for (const person of people) {
+  if (person === "Phil" || person === "Lola") {
+    refused.textContent += person + ", ";
+  }
+  admitted.textContent += person + ", ";
+  // admitted.textContent += `{person}, `;
+}
+refused.textContent = `${refused.textContent.slice(0, -2)}.`;
+admitted.textContent = `${admitted.textContent.slice(0, -2)}.`;
+
+// repeat until input is > 100
+let numGuess;
+do {
+  num = prompt("Enter a num greater than 100", 0);
+} while (num <= 100 && num);
