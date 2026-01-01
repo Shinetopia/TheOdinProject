@@ -96,7 +96,99 @@ refused.textContent = `${refused.textContent.slice(0, -2)}.`;
 admitted.textContent = `${admitted.textContent.slice(0, -2)}.`;
 
 // repeat until input is > 100
-let numGuess;
-do {
-  num = prompt("Enter a num greater than 100", 0);
-} while (num <= 100 && num);
+// let numGuess;
+// do {
+//   num = prompt("Enter a num greater than 100", 0);
+// } while (num <= 100 && num);
+
+// sum every tripled even
+// const numArray = [1, 2, 3, 4, 5];
+// const filteredArray = numArray.filter((num) => num % 2 == 0);
+// const tripledArray = filteredArray.map((num) => num * 3);
+// const sumOfTripledEvens = tripledArray.reduce((total, currentItem) => {
+//   return total + currentItem;
+// });
+// console.log(sumOfTripledEvens);
+
+function sumOfTripledEvens(array) {
+  return array
+    .filter((num) => num % 2 === 0)
+    .map((num) => num * 3)
+    .reduce((acc, curr) => acc + curr);
+}
+console.log(sumOfTripledEvens([1, 2, 3, 4, 5]));
+
+//translate border-left-width to borderLeftWidth
+function camelize(str) {
+  return str
+    .split("-")
+    .map((word, index) =>
+      index == 0 ? word : word[0].toUpperCase() + word.slice(1)
+    )
+    .join("");
+}
+console.log(camelize("-webkit-transition"));
+
+// function filterRange(arr, a, b) {
+//   return arr.filter((num) => num > a && num <= b);
+// }
+// console.log(filterRange([5, 3, 8, 1], 2, 6));
+
+// keep if a <= item <=b
+function filterRangeInPlace(arr, a, b) {
+  let i = 0;
+  while (i < arr.length) {
+    if (b < arr[i] || arr[i] < a) {
+      arr.splice(i, 1);
+    }
+    i++;
+  }
+  console.log(arr);
+}
+filterRangeInPlace([5, 3, 8, 1], 5, 8);
+
+// let randomArr = [5, 2, 1, -10, 8];
+// randomArr.reverse();
+// console.log(randomArr);
+// or same thing: arr.sort((a, b) => b - a);
+
+function copySorted(arr) {
+  return arr.slice().sort();
+}
+console.log(copySorted(["HTML", "JavaScript", "CSS"]));
+
+// Fisher-Yates shuffle
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+
+    // swap elements array[i] and array[j]
+    // we use "destructuring assignment" syntax to achieve that
+    // same can be written as:
+    // let t = array[i]; array[i] = array[j]; array[j] = t
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function unique(arr) {
+  let uniqueArr = [];
+  for (const item of arr) {
+    if (!uniqueArr.includes(item)) {
+      uniqueArr.push(item);
+    }
+  }
+  return uniqueArr;
+}
+console.log(
+  unique([
+    "Hare",
+    "Krishna",
+    "Hare",
+    "Krishna",
+    "Krishna",
+    "Krishna",
+    "Hare",
+    "Hare",
+    ":-O",
+  ])
+);
