@@ -192,3 +192,63 @@ console.log(
     ":-O",
   ])
 );
+
+// DOM Manipulation (surely there's a more efficient way to do this)
+// const container = document.querySelector("#container");
+
+// const content = document.createElement("div");
+// content.classList.add("content");
+// content.textContent = "This is the glorious text-content!";
+
+// container.appendChild(content);
+
+// const moarContent = document.createElement("p");
+// moarContent.style.color = "red";
+// moarContent.textContent = "Hey I'm red!";
+
+// container.appendChild(moarContent);
+
+// const header = document.createElement("h3");
+// header.style.color = "blue";
+// header.textContent = "I'm a blue h3!";
+
+// container.appendChild(header);
+
+// const container2 = document.createElement("div");
+// container2.setAttribute(
+//   "style",
+//   "border: 2px solid black; background-color: pink;"
+// );
+// const content2 = document.createElement("h1");
+// content2.textContent = "I'm in a div";
+// container2.appendChild(content2);
+// const content3 = document.createElement("p");
+// content3.textContent = "ME TOO!";
+// container2.appendChild(content3);
+// container.appendChild(container2);
+
+// function alertFunction() {
+//   alert("YAY YOU DID IT!");
+// }
+// const btn = document.querySelector("#btn");
+// btn.addEventListener("click", function (e) {
+//   // console.log(e.target);
+//   e.target.style.background = "blue";
+// });
+
+// MDN DOM
+const link = document.querySelector("a");
+link.textContent = "Mozilla Developer Network";
+link.href = "https://developer.mozilla.org";
+const sect = document.querySelector("section");
+const para = document.createElement("p");
+para.textContent = "We hope you enjoyed the ride.";
+sect.appendChild(para);
+const text = document.createTextNode(
+  " — the premier source for web development knowledge."
+);
+const linkPara = document.querySelector("p");
+linkPara.appendChild(text);
+// sect.removeChild(linkPara);
+linkPara.parentNode.removeChild(linkPara);
+para.classList.add("highlight");
