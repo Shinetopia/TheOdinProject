@@ -1,46 +1,97 @@
 playGame();
 
+const body = document.querySelector("body");
+
 function playGame() {
+  const resultsContainer = document.querySelector("#results-container");
+  const winnerAnnouncement = document.createElement("p");
+  let rpsMenu = document.querySelector("#rps-options");
   let humanScore = 0;
   let computerScore = 0;
-  for (let i = 0; i < 5; i++) {
-    playRound(getHumanChoice(), getComputerChoice());
-  }
-  if (humanScore < computerScore) {
-    console.log("Get gud bruh");
-  } else {
-    console.log("Okay king, slay");
-  }
+  let endGame = false;
+
+  rpsMenu.addEventListener("click", (event) => {
+    let target = event.target;
+    switch (target.id) {
+      case "rock":
+        playRound("rock", getComputerChoice());
+        break;
+      case "paper":
+        playRound("paper", getComputerChoice());
+        break;
+      case "scissors":
+        playRound("scissors", getComputerChoice());
+        break;
+    }
+  });
 
   function playRound(humanChoice, computerChoice) {
+    // showing round results
+    const roundResult = document.querySelector("#round-result");
+    const runningScore = document.querySelector("#running-score");
     let combo = humanChoice + ":" + computerChoice;
+    if (endGame === true) {
+      humanScore = 0;
+      computerScore = 0;
+      resultsContainer.removeChild(winnerAnnouncement);
+      endGame = false;
+    }
     switch (combo) {
       case "rock:scissors":
-        console.log("You win! " + humanChoice + " beats " + computerChoice);
         humanScore++;
+        roundResult.textContent =
+          "You win! " + humanChoice + " beats " + computerChoice;
+        runningScore.textContent =
+          "Human: " + humanScore + " | Computer: " + computerScore;
         break;
       case "scissors:paper":
-        console.log("You win! " + humanChoice + " beats " + computerChoice);
         humanScore++;
+        roundResult.textContent =
+          "You win! " + humanChoice + " beats " + computerChoice;
+        runningScore.textContent =
+          "Human: " + humanScore + " | Computer: " + computerScore;
         break;
       case "paper:rock":
-        console.log("You win! " + humanChoice + " beats " + computerChoice);
         humanScore++;
+        roundResult.textContent =
+          "You win! " + humanChoice + " beats " + computerChoice;
+        runningScore.textContent =
+          "Human: " + humanScore + " | Computer: " + computerScore;
         break;
       case "scissors:rock":
-        console.log("You lose! " + computerChoice + " beats " + humanChoice);
         computerScore++;
+        roundResult.textContent =
+          "You lose! " + computerChoice + " beats " + humanChoice;
+        runningScore.textContent =
+          "Human: " + humanScore + " | Computer: " + computerScore;
         break;
       case "paper:scissors":
-        console.log("You lose! " + computerChoice + " beats " + humanChoice);
         computerScore++;
+        roundResult.textContent =
+          "You lose! " + computerChoice + " beats " + humanChoice;
+        runningScore.textContent =
+          "Human: " + humanScore + " | Computer: " + computerScore;
         break;
       case "rock:scissors":
-        console.log("You lose! " + computerChoice + " beats " + humanChoice);
         computerScore++;
+        roundResult.textContent =
+          "You lose! " + computerChoice + " beats " + humanChoice;
+        runningScore.textContent =
+          "Human: " + humanScore + " | Computer: " + computerScore;
         break;
       default:
-        console.log("It's a tie! Go again");
+        roundResult.textContent = "It's a tie! Go again";
+        runningScore.textContent =
+          "Human: " + humanScore + " | Computer: " + computerScore;
+    }
+    if (humanScore >= 5) {
+      winnerAnnouncement.textContent = "yOU win! SLAY.";
+      resultsContainer.appendChild(winnerAnnouncement);
+      endGame = true;
+    } else if (computerScore >= 5) {
+      winnerAnnouncement.textContent = "yOU got beat by a bot.";
+      resultsContainer.appendChild(winnerAnnouncement);
+      endGame = true;
     }
   }
 }
@@ -55,7 +106,7 @@ function getComputerChoice() {
   return "scissors";
 }
 
-function getHumanChoice() {
-  let humanChoice = prompt("Rock/Paper/Scissors");
-  return humanChoice.toLowerCase();
-}
+// function getHumanChoice() {
+//   let humanChoice = prompt("Rock/Paper/Scissors");
+//   return humanChoice.toLowerCase();
+// }
