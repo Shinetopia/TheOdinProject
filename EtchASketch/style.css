@@ -1,0 +1,6 @@
+.container {
+  max-width: 960px;
+  max-height: 960px;
+  display: flex;
+  flex-direction: column;
+}
