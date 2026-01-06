@@ -252,3 +252,82 @@ linkPara.appendChild(text);
 // sect.removeChild(linkPara);
 linkPara.parentNode.removeChild(linkPara);
 para.classList.add("highlight");
+
+// Objects have an optional list of properties (key: value pair), key = property name
+// Map to names
+// let john = { name: "John", age: 25 };
+// let pete = { name: "Pete", age: 30 };
+// let mary = { name: "Mary", age: 28 };
+
+// let users = [john, pete, mary];
+
+// let names = users.map((item) => item.name);
+
+// console.log(names); // John, Pete, Mary
+
+// Map to objects
+// let john = { name: "John", surname: "Smith", id: 1 };
+// let pete = { name: "Pete", surname: "Hunt", id: 2 };
+// let mary = { name: "Mary", surname: "Key", id: 3 };
+
+// let users = [john, pete, mary];
+
+// let usersMapped = users.map((user) => ({
+//   fullName: `${user.name} ${user.surname}`,
+//   id: user.id,
+// }));
+// alert(usersMapped[0].id); // 1
+// alert(usersMapped[0].fullName); // John Smith
+
+// let john = { name: "John", age: 25 };
+// let pete = { name: "Pete", age: 30 };
+// let mary = { name: "Mary", age: 28 };
+
+// let arr = [pete, john, mary];
+
+// alert(getAverageAge(arr)); // (25 + 30 + 29) / 3 = 28
+
+// function getAverageAge(arr) {
+//   let sum = 0;
+//   for (let i = 0; i < arr.length; i++) {
+//     sum += arr[i].age;
+//   }
+//   return Math.round(sum / arr.length);
+//   // return users.reduce((prev, user) => prev + user.age, 0) / users.length;
+// }
+
+// sortByAge(arr);
+
+// function sortByAge(users) {
+//   users.sort((a, b) => a.age - b.age);
+// }
+// now: [john, mary, pete]
+// alert(arr[0].name); // John
+// alert(arr[1].name); // Mary
+// alert(arr[2].name); // Pete
+
+let users = [
+  { id: "john", name: "John Smith", age: 20 },
+  { id: "ann", name: "Ann Smith", age: 24 },
+  { id: "pete", name: "Pete Peterson", age: 31 },
+];
+
+// let usersById = groupById(users);
+console.log(groupById(users));
+
+function groupById(users) {
+  return users.reduce((obj, value) => {
+    obj[value.id] = value;
+    return obj;
+  }, {});
+}
+
+/*
+// after the call we should have:
+
+usersById = {
+  john: {id: 'john', name: "John Smith", age: 20},
+  ann: {id: 'ann', name: "Ann Smith", age: 24},
+  pete: {id: 'pete', name: "Pete Peterson", age: 31},
+}
+*/
