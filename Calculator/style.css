@@ -26,3 +26,7 @@
 #clear {
   grid-column: 1 / 4;
 }
+
+.toggle {
+  background-color: orange;
+}
