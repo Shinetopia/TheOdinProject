@@ -1,15 +1,8 @@
 let num1 = "";
 let operator = "";
 let num2 = "";
-let finishOpFlag = false;
-// const operators = ["add", "subtract", "multiply", "divide"];
 const gridContainer = document.querySelector(".grid-container");
 const display = document.querySelector("#display-content");
-
-/*
- * 1 + 2
- * 2 + 1
- */
 
 gridContainer.addEventListener("click", (event) => {
   let target = event.target;
@@ -17,47 +10,42 @@ gridContainer.addEventListener("click", (event) => {
     if (operator === "") {
       num1 += target.id;
       updateDisplay(num1);
+      console.log("num1: " + num1);
     } else {
       num2 += target.id;
       updateDisplay(num2);
+      console.log("num2: " + num2);
     }
   } else if (target.id === "clear") {
     num1 = "";
     num2 = "";
     operator = "";
     updateDisplay(0);
-  } else if (target.classList.contains("operator")) {
+  } else if (target.classList.contains("operator") || target.id === "equal") {
     if (num1 !== "" && num2 !== "" && operator !== "") {
-      console.log("num1: " + num1);
-      console.log("num2: " + num2);
       let result = operate(Number(num1), Number(num2), operator);
       updateDisplay(result);
       num1 = result;
       num2 = "";
     }
-    operator = target.id;
-    let currentActive = gridContainer.querySelector(".toggle");
-    console.log(operator);
-    if (currentActive && currentActive !== target) {
-      currentActive.classList.remove("toggle");
+    // if operator
+    if (target.id !== "equal") {
+      operator = target.id;
     }
-    target.classList.toggle("toggle");
   }
+  //     operator = target.id;
+  //     let currentActive = gridContainer.querySelector(".toggle");
+  //     console.log(operator);
+  //     if (currentActive && currentActive !== target) {
+  //       currentActive.classList.remove("toggle");
+  //     }
+  //     target.classList.toggle("toggle");
+  //   }
 });
 
 function updateDisplay(num) {
   display.textContent = num;
 }
-
-// function updateDisplay(num, prevOpFlag) {
-//   if (stack.length === 0) {
-//     display.textContent = "0";
-//   } else if (prevOpFlag === true) {
-//     display.textContent = num;
-//   } else {
-//     display.textContent = stack.join("");
-//   }
-// }
 
 function add(a, b) {
   return a + b;
@@ -85,7 +73,5 @@ function operate(num1, num2, operator) {
       return multiply(num1, num2);
     case "divide":
       return divide(num1, num2);
-    case "equal":
-      return (finishOpFlag = true);
   }
 }
