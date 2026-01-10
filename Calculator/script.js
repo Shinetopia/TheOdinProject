@@ -24,9 +24,16 @@ gridContainer.addEventListener("click", (event) => {
   } else if (target.classList.contains("operator") || target.id === "equal") {
     if (num1 !== "" && num2 !== "" && operator !== "") {
       let result = operate(Number(num1), Number(num2), operator);
-      updateDisplay(result);
-      num1 = result;
+      if (isNaN(result)) {
+        updateDisplay("No division by 0 blud");
+        num1 = "";
+        console.log("divis");
+      } else {
+        updateDisplay(result);
+        num1 = result;
+      }
       num2 = "";
+      operator = "";
     }
     // if operator
     if (target.id !== "equal") {
