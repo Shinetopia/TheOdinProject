@@ -1,0 +1,12 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  border: 2px solid salmon;
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
