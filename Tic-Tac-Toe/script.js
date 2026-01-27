@@ -10,21 +10,49 @@ const gameBoard = (() => {
     [2, 4, 6],
   ];
   let usedSquares = [];
+  const reset = () => {
+    usedSquares = [];
+  };
+  return { reset };
 })();
 
-const Player = (name, marker) => {
+//gameBoard.resetGame();
+
+function createPlayer(name, marker) {
+  let playerName = name;
+  let playerMarker = marker;
   let playerSquares = [];
-  const getName = () => name;
-  const makeMove = (marker, square) => {
-    playerSquares.push(marker);
+  //   const getName = () => name;
+  const makeMove = (square) => {
+    playerSquares.push(square);
   };
-  return {};
-};
+  const reset = () => {
+    playerSquares = [];
+  };
+  return { name, marker, makeMove, reset };
+}
 
-const playGame = (() => {})();
+const gameController = (() => {
+  const player1 = createPlayer("bob", "X");
+  const player2 = createPlayer("ross", "O");
+  let gameOver = false;
+  let currentPlayer = player1;
+  const resetGame = () => {
+    player1.reset();
+    player2.reset();
+    currentPlayer = player1;
+    gameOver = false;
+  };
+  const playTurn = (index) => {
+    if (gameOver) return;
+  };
+  return { resetGame, playTurn };
+})();
+//gameController.resetGame();
+//gameController.playTurn();
 
-const player1 = Player("bob", "X");
-const player2 = Player("ross", "O");
+// const player1 = Player("bob", "X");
+// const player2 = Player("ross", "O");
 
 // const Player = (name, level) => {
 //   let health = level * 2;
