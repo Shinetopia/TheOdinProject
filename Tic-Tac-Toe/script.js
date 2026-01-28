@@ -1,29 +1,23 @@
 const gameBoard = (() => {
   let board = ["", "", "", "", "", "", "", "", ""];
   const reset = () => {
-    board = ["", "", "", "", "", "", "", "", ""];
+    board.fill("");
   };
   const fillSquare = (index, marker) => {
     if (board[index] !== "") return false;
     board.splice(index, 1, marker);
     return true;
   };
-  //   const getBoard = () => board;
   return { board, reset, fillSquare };
 })();
 
-//gameBoard.resetGame();
-
 function createPlayer(name, marker) {
-  let playerName = name;
-  let playerMarker = marker;
   let Squares = [];
-  //   const getName = () => name;
   const makeMove = (square) => {
     Squares.push(square);
   };
   const reset = () => {
-    Squares = [];
+    Squares.length = 0;
   };
   return { name, marker, Squares, makeMove, reset };
 }
@@ -71,12 +65,14 @@ const gameController = (() => {
     }
   };
   const playTurn = (index) => {
-    checkGameStatus();
     if (gameOver) return;
     if (!gameBoard.fillSquare(index, currentPlayer.marker)) return;
     console.log(gameBoard.board);
     currentPlayer.makeMove(index);
-    currentPlayer = currentPlayer === player1 ? player2 : player1;
+    checkGameStatus();
+    if (!gameOver) {
+      currentPlayer = currentPlayer === player1 ? player2 : player1;
+    }
   };
   return { resetGame, playTurn };
 })();
