@@ -1,4 +1,34 @@
 const gameBoard = (() => {
+  let board = ["", "", "", "", "", "", "", "", ""];
+  const reset = () => {
+    board = ["", "", "", "", "", "", "", "", ""];
+  };
+  const fillSquare = (index, marker) => {
+    if (board[index] !== "") return false;
+    board.splice(index, 1, marker);
+    return true;
+  };
+  //   const getBoard = () => board;
+  return { board, reset, fillSquare };
+})();
+
+//gameBoard.resetGame();
+
+function createPlayer(name, marker) {
+  let playerName = name;
+  let playerMarker = marker;
+  let Squares = [];
+  //   const getName = () => name;
+  const makeMove = (square) => {
+    Squares.push(square);
+  };
+  const reset = () => {
+    Squares = [];
+  };
+  return { name, marker, Squares, makeMove, reset };
+}
+
+const gameController = (() => {
   const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -9,30 +39,6 @@ const gameBoard = (() => {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  let usedSquares = [];
-  const reset = () => {
-    usedSquares = [];
-  };
-  return { reset };
-})();
-
-//gameBoard.resetGame();
-
-function createPlayer(name, marker) {
-  let playerName = name;
-  let playerMarker = marker;
-  let playerSquares = [];
-  //   const getName = () => name;
-  const makeMove = (square) => {
-    playerSquares.push(square);
-  };
-  const reset = () => {
-    playerSquares = [];
-  };
-  return { name, marker, makeMove, reset };
-}
-
-const gameController = (() => {
   const player1 = createPlayer("bob", "X");
   const player2 = createPlayer("ross", "O");
   let gameOver = false;
@@ -40,11 +46,37 @@ const gameController = (() => {
   const resetGame = () => {
     player1.reset();
     player2.reset();
+    gameBoard.reset();
     currentPlayer = player1;
     gameOver = false;
   };
+  const checkGameStatus = () => {
+    if (
+      winningCombos.some((combo) =>
+        combo.every((index) => player1.Squares.includes(index))
+      )
+    ) {
+      gameOver = true;
+      console.log(`${player1.name} won!`);
+    } else if (
+      winningCombos.some((combo) =>
+        combo.every((index) => player2.Squares.includes(index))
+      )
+    ) {
+      gameOver = true;
+      console.log(`${player2.name} won!`);
+    } else if (!gameBoard.board.includes("")) {
+      gameOver = true;
+      console.log("It's a tie!");
+    }
+  };
   const playTurn = (index) => {
+    checkGameStatus();
     if (gameOver) return;
+    if (!gameBoard.fillSquare(index, currentPlayer.marker)) return;
+    console.log(gameBoard.board);
+    currentPlayer.makeMove(index);
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
   };
   return { resetGame, playTurn };
 })();
