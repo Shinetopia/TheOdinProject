@@ -65,19 +65,43 @@ const gameController = (() => {
     }
   };
   const playTurn = (index) => {
-    if (gameOver) return;
-    if (!gameBoard.fillSquare(index, currentPlayer.marker)) return;
+    if (gameOver) return false;
+    if (!gameBoard.fillSquare(index, currentPlayer.marker)) {
+      // return { status: "invalid" };
+      return false;
+    }
     console.log(gameBoard.board);
     currentPlayer.makeMove(index);
     checkGameStatus();
     if (!gameOver) {
       currentPlayer = currentPlayer === player1 ? player2 : player1;
+      return true;
     }
+    return true;
   };
-  return { resetGame, playTurn };
+  return { currentPlayer, resetGame, playTurn };
 })();
 //gameController.resetGame();
 //gameController.playTurn();
+
+const displayController = (() => {
+  const boardContainer = document.querySelector("#tic-tac-toe-container");
+  const render = (square, index) => {
+    const p = square.querySelector("p");
+    p.textContent = gameBoard.board[index];
+  };
+  const handleClick = (event) => {
+    const target = event.target;
+    const square = target.closest("[data-index]");
+    const index = Number(target.dataset.index);
+    if (gameController.playTurn(index)) {
+      render(square, index);
+    }
+  };
+  boardContainer.addEventListener("click", handleClick);
+  return { render, handleClick };
+})();
+//displayController.render();
 
 // const player1 = Player("bob", "X");
 // const player2 = Player("ross", "O");
