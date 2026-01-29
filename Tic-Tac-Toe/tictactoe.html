@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
+  <form>
+    <label for="player1-name">Player 1's Name (X):</label>
+    <input type="text" name="name" id="player1-name" required />
+    <label for="player2-name">Player 2's Name (O):</label>
+    <input type="text" name="name" id="player2-name" required />
+    <button type="button">Start / Restart</button>
+  </form>
   <body>
     <div id="tic-tac-toe-container">
       <div id="square-0" data-index="0"><p></p></div>
@@ -19,5 +26,6 @@
       <div id="square-7" data-index="7"><p></p></div>
       <div id="square-8" data-index="8"><p></p></div>
     </div>
+    <p id="status-text"></p>
   </body>
 </html>
