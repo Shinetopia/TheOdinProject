@@ -7,7 +7,7 @@ const titleVal = document.querySelector("#title");
 const authorVal = document.querySelector("#author");
 const pagesVal = document.querySelector("#pages");
 const readVal = document.querySelector("#pages");
-const myLibrary = [];
+// const myLibrary = [];
 
 showBtn.addEventListener("click", () => {
   dialog.showModal();
@@ -17,69 +17,71 @@ addBtn.addEventListener("click", (event) => {
   event.preventDefault();
   const selectedRadio = document.querySelector('input[name="read"]:checked');
   const isRead = selectedRadio.value === "true";
-  addbookToLibrary(titleVal.value, authorVal.value, pagesVal.value, isRead);
+  library.addBook(titleVal.value, authorVal.value, pagesVal.value, isRead);
   dialog.close();
 });
 
-function Book(title, author, pages, read, id) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.id = id;
-}
-
-Book.prototype.info = function () {
-  let status = this.read ? "already read" : "not read yet";
-  return `${this.title} by ${this.author}, ${this.pages} pages, ${status}`;
-};
-
-Book.prototype.changeReadingStatus = function () {
-  this.read = !this.read;
-};
-
-function addbookToLibrary(title, author, pages, read) {
-  let book = new Book(title, author, pages, read, crypto.randomUUID());
-  myLibrary.push(book);
-  displayBook(book);
-}
-
-addbookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
-addbookToLibrary("Warriors", "Erin Hunter", 190, true);
-
-function displayBook(book) {
-  let card = document.createElement("div");
-  let infoText = document.createElement("p");
-  infoText.textContent = book.info();
-  card.appendChild(infoText);
-  card.classList.add("card");
-  card.dataset.id = book.id;
-
-  let changeStatBtn = document.createElement("button");
-  changeStatBtn.textContent = "Change reading status";
-  changeStatBtn.addEventListener("click", () => {
-    book.changeReadingStatus();
-    infoText.textContent = book.info();
-    console.log(book);
-  });
-  card.appendChild(changeStatBtn);
-
-  let deleteBtn = document.createElement("button");
-  deleteBtn.textContent = "Delete";
-  deleteBtn.addEventListener("click", deleteBook);
-  function deleteBook() {
-    body.removeChild(card);
-    let index = myLibrary.findIndex((buk) => buk.id === book.id);
-    myLibrary.splice(index, 1);
+class Library {
+  constructor(container) {
+    this.container = container;
+    this.books = [];
   }
+  addBook(title, author, pages, read) {
+    let book = new Book(title, author, pages, read, crypto.randomUUID());
+    this.books.push(book);
+    this.renderBook(book);
+  }
+  removeBook(id) {
+    this.books = this.books.filter((book) => book.id !== id);
+  }
+  renderBook(book) {
+    const card = document.createElement("div");
+    // card.appendChild(infoText);
+    card.classList.add("card");
+    card.dataset.id = book.id;
 
-  card.appendChild(deleteBtn);
-  body.appendChild(card);
+    const infoText = document.createElement("p");
+    infoText.textContent = book.info;
+
+    const changeStatBtn = document.createElement("button");
+    changeStatBtn.textContent = "Change reading status";
+    changeStatBtn.addEventListener("click", () => {
+      book.changeReadingStatus();
+      infoText.textContent = book.info;
+      console.log(book);
+    });
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", () => {
+      body.removeChild(card);
+      this.removeBook(book.id);
+    });
+
+    card.append(infoText, changeStatBtn, deleteBtn);
+    this.container.appendChild(card);
+  }
 }
 
-// for (const book of myLibrary) {
-//   displayBook(book);
-// }
+class Book {
+  constructor(title, author, pages, read, id) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.id = id;
+  }
+  get info() {
+    let status = this.read ? "already read" : "not read yet";
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${status}`;
+  }
+  changeReadingStatus() {
+    this.read = !this.read;
+  }
+}
+
+const library = new Library(document.body);
+library.addBook("The Hobbit", "J.R.R. Tolkien", 295, false);
+library.addBook("Warriors", "Erin Hunter", 190, true);
 
 // console.log(theHobbit.info());
 
