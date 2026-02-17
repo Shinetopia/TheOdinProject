@@ -1,3 +1,36 @@
+* {
+  color: #ff9a3d;
+}
+
 body {
-  background-color: rebeccapurple;
+  padding: 6rem;
+}
+
+p {
+  color: #b84300;
+}
+
+body {
+  background-color: #2a0f00;
+}
+
+button {
+  background: #4a1c00;
+  border: 2px solid #b84300;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+}
+
+.grid-container {
+  display: grid;
+  border: 2px solid #b84300;
+  background: #4a1c00;
+  /* grid-template-rows: repeat(3, 150px); */
+  grid-template-rows: 150px;
+  grid-template-columns: repeat(2, 150px);
+}
+
+img {
+  height: auto;
+  width: 100px;
 }
