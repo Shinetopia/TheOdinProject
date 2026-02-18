@@ -4,7 +4,7 @@ export function about() {
   aboutTitle.textContent = "About";
   const subTitle = document.createElement("p");
   subTitle.textContent =
-    "Learning more DOM manipulation with modules from The Odin Project.";
+    "Learning more DOM manipulation with modules from The Odin Project. Not sponsored by Presotea.";
   aboutContainer.appendChild(aboutTitle);
   aboutContainer.appendChild(subTitle);
   return aboutContainer;
